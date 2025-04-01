@@ -1,5 +1,5 @@
 //@ts-check
-import { world, system, BlockPermutation, Player, ItemStack, Block } from '@minecraft/server';
+import { world, system, BlockPermutation, Player, ItemStack, Block, EquipmentSlot } from '@minecraft/server';
 import { MinecraftBlockTypes, MinecraftItemTypes } from './lib/index.js';
 
 const mossyBlocks = [
@@ -22,9 +22,9 @@ const mossyBlocks = [
 const decrementItemStack = function(player, itemStack) {
     if (itemStack.amount > 1) {
         itemStack.amount--;
-        player.getComponent("inventory")?.container?.setItem(player.selectedSlotIndex, itemStack);
+        player.getComponent("equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand).setItem(itemStack);
     } else {
-        player.getComponent("inventory")?.container?.setItem(player.selectedSlotIndex);
+        player.getComponent("equippable")?.getEquipmentSlot(EquipmentSlot.Mainhand).setItem();
     }
 }
 
